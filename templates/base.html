@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Sport").change(function () {
+                var el = $(this);
+                $("#League").empty()
+                    .append("<option> Choose league </option>");
+                if (el.val() === "basketball") {
+                    $("#League").append("{% for league in basketball %} <option> {{ league }}</option> {% endfor %}");
+                }
+                if (el.val() === "football") {
+                    $("#League").append("{% for league in football %} <option> {{ league }}</option> {% endfor %}");
+                }
+                if (el.val() === "hockey") {
+                    $("#League").append("{% for league in hockey %} <option> {{ league }}</option> {% endfor %}");
+                }
+                if (el.val() === "tennis") {
+                    $("#League").append("{% for league in tennis %} <option> {{ league }}</option> {% endfor %}");
+                }
+                if (el.val() === "cybersport") {
+                    $("#League").append("{% for league in cybersport %} <option> {{ league }}</option> {% endfor %}");
+                }
+            });
+
+            $("#League").change(function () {
+                var el = $(this);
+                $("#Team1").empty()
+                    .append("<option> Choose team </option>");
+                $("#Team2").empty()
+                    .append("<option> Choose team </option>");
+                if (el.val() === "LaLiga") {
+                    $("#Team1").append("{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Serie_A") {
+                    $("#Team1").append("{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Bundesliga") {
+                    $("#Team1").append("{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "EPL") {
+                    $("#Team1").append("{% for team in EPL %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in EPL %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Ligue_1") {
+                    $("#Team1").append("{% for team in Ligue_1 %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Ligue_1 %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "RFPL") {
+                    $("#Team1").append("{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Ukraine_league") {
+                    $("#Team1").append("{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "FNL") {
+                    $("#Team1").append("{% for team in FNL %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in FNL %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Champions_league") {
+                    $("#Team1").append("{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "Europa_league") {
+                    $("#Team1").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'main' %}">Главная</a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'events' %}">События</a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'users' %}">Пользователи</a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'requests' %}">Запросы</a>
+        </div>
+        {% block navbar %}{% endblock %}
+    </div>
+</div>
+<div class="container">
+    <header>{% block header %}{% endblock %}</header>
+    {% block body %}{% endblock %}
+</div>
+{% block modal1 %}{% endblock %}
+{% block modal2 %}{% endblock %}
+{% block modal3 %}{% endblock %}
+{% block modal4 %}{% endblock %}
+</body>
+</html>

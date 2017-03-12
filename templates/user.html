@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.qiwi }}{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <p class="good_id">{{ user.qiwi }}</p>
+    <div class="good">
+        <p class="title">{{ user.qiwi }}</p>
+        <h4><span class="fields">Баланс: {{ user.balance }}</span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
+                Изменить
+            </button>
+        </h4>
+        <p>Список ставок:</p>
+        <div class="goods_list">
+            <table class="table">
+                <tr>
+                    <td>
+                        Номер ставки
+                    </td>
+                    <td>
+                        Вид спорта
+                    </td>
+                    <td>
+                        Лига
+                    </td>
+                    <td>
+                        Матч
+                    </td>
+                    <td>
+                        Выбор
+                    </td>
+                    <td>
+                        Коэффициент
+                    </td>
+                    <td>
+                        Ставка
+                    </td>
+                    <td>
+                        Статус
+                    </td>
+                </tr>
+                {% for bet in bets %}
+                    <tr>
+                        <td>
+                            {{ bet.id }}
+                        </td>
+                        <td>
+                            {{ bet.event.sport }}
+                        </td>
+                        <td>
+                            {{ bet.event.league }}
+                        </td>
+                        <td>
+                            {{ bet.event.team1 }} - {{ bet.event.team2 }}
+                        </td>
+                        <td>
+                            {{ bet.choice }}
+                        </td>
+                        <td>
+                            {{ bet.ratio }}
+                        </td>
+                        <td>
+                            {{ bet.amount }}
+                        </td>
+                        <td>
+                            {{ bet.status }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block modal1 %}
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Изменение данных пользователя</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data" action="{% url 'edit_user' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" id="name" value="{{ user.id }}">
+                        </label>
+                        <label class="good-name">
+                            qiwi:
+                            <input type="text" name="qiwi" id="name" value="{{ user.qiwi }}">
+                        </label>
+                        <label class="good-price">
+                            Баланс:
+                            <input type="number" name="balance" id="price" value="{{ user.balance }}">
+                        </label>
+                        <br>
+                        <button class="btn btn-primary btn-save" type="submit">Сохранить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block header %}<!--<h2>Авторизация</h2>-->{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <p> SUCCESS</p>
+{% endblock %}

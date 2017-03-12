@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="users_list">
+        <table class="table">
+            <tr>
+                <td>
+                    qiwi
+                </td>
+                <td>
+                    telegram id
+                </td>
+                <td>
+                    Баланс
+                </td>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        <a href="{% url 'user' user.id %}">
+                            {{ user.qiwi }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ user.telegram_id }}
+                    </td>
+                    <td>
+                        {{ user.balance }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

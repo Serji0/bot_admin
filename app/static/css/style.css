@@ -1,0 +1,150 @@
+.btn a {
+    text-decoration: none;
+    color: white;
+}
+
+form p {
+    float: right;
+}
+
+.navbar-header{
+
+}
+
+.auth_form {
+    width: 400px;
+    margin: 100px auto 0;
+    padding-bottom: 30px;
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+.auth_form form{
+    width: 240px;
+    margin: 0 auto;
+}
+
+.auth_form h2, .registration_form h2{
+    text-align: center;
+}
+
+.auth_form form .btn-submit{
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.btn_navbar {
+    float: right;
+    margin-top: 7px;
+}
+
+.navbar_name {
+    color: white;
+}
+
+.logo {
+    height: 40px;
+    width: 60px;
+    margin-right: 5px;
+}
+
+.logo-lg {
+    height: 200px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.fields {
+    font-style: italic;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.modal-body form {
+    width: 400px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+.modal-body form label{
+    display: block;
+}
+
+.modal-body form button {
+
+}
+
+.btn-close {
+    margin-right: 100px;
+    margin-left: 10px;
+}
+
+input[type="file"] {
+    display: inline-block;
+}
+
+.text-error {
+    display: block;
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.btn-add-good {
+    position: fixed;
+    right: 20px;
+    bottom: 60px;
+}
+
+.list_users {
+    margin-left: 20px;
+}
+
+.user-comment {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.users {
+    margin-top: 20px;
+}
+
+.comment{
+    width: 450px;
+    text-align: center;
+    border: 2px solid;
+    border-radius: 10px;
+    padding-bottom: 20px;
+    margin: 50px 0;
+}
+
+.form_comment p{
+    display: inline-block;
+    float: none;
+}
+
+.form_comment {
+    width: 285px;
+    text-align: right;
+    margin: 0 auto;
+
+}
+
+.comment-title {
+    font-weight: bold;
+}
+
+.good_id {
+    display: none;
+}
+
+.score{
+    display: inline-block;
+    width: 100px;
+}

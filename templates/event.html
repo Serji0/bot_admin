@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.qiwi }}{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="good">
+    <p class="title"> {{ event.sport }} {{ event.league }} {{ event.team1 }}
+        - {{ event.team2 }} {{ event.time }} {{ event.total1 }} - {{ event.total2 }}</p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
+        Изменить
+    </button>
+    <button id ='close_event' type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">
+        Закрыть приём ставок
+    </button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal2">
+        Ввести счет
+    </button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal3">
+        Удалить событие
+    </button>
+    </div>
+    <div class="users_list">
+        <table class="table">
+            <tr>
+                <td>
+                    П1
+                </td>
+                <td>
+                    Х
+                </td>
+                <td>
+                    П2
+                </td>
+                <td>
+                    ТМ {{ event.total_value }}
+                </td>
+                <td>
+                    ТБ {{ event.total_value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ event.win_ratio }}
+
+                </td>
+                <td>
+                    {{ event.draw_ratio }}
+                </td>
+                <td>
+                    {{ event.lose_ratio }}
+                </td>
+                <td>
+                    {{ event.under_ratio }}
+                </td>
+                <td>
+                    {{ event.over_ratio }}
+                </td>
+            </tr>
+        </table>
+        <p>Список ставок:</p>
+        <div class="goods_list">
+            <table class="table">
+                <tr>
+                    <td>
+                        Номер ставки
+                    </td>
+                    <td>
+                        Пользователь
+                    </td>
+                    <td>
+                        Выбор
+                    </td>
+                    <td>
+                        Коэффициент
+                    </td>
+                    <td>
+                        Ставка
+                    </td>
+                    <td>
+                        Статус
+                    </td>
+                </tr>
+                {% for bet in bets %}
+                    <tr>
+                        <td>
+                            {{ bet.id }}
+                        </td>
+                        <td>
+                            {{ bet.user.qiwi }}
+                        </td>
+                        <td>
+                            {{ bet.choice }}
+                        </td>
+                        <td>
+                            {{ bet.ratio }}
+                        </td>
+                        <td>
+                            {{ bet.amount }}
+                        </td>
+                        <td>
+                            {{ bet.status }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block modal1 %}
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Изменение данных о событии</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data" action="{% url 'edit_event' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" value="{{ event.id }}">
+                        </label>
+                        <label class="good-name">
+                            Дата:
+                            <input type="datetime-local" name="time" value="{{ event.time }}">
+                        </label>
+                        <label class="good-name">
+                            Максимальная ставка:
+                            <input type="number" name="max_bet" value="{{ event.max_bet }}">
+                        </label>
+                        <label class="good-name">
+                            П1:
+                            <input type="number" step="0.01" name="win_ratio" value="{{ event.win_ratio }}">
+                        </label>
+                        <label class="good-name">
+                            Х:
+                            <input type="number" step="0.01" name="draw_ratio" value="{{ event.draw_ratio }}">
+                        </label>
+                        <label class="good-name">
+                            П2:
+                            <input type="number" step="0.01" name="lose_ratio" value="{{ event.lose_ratio }}">
+                        </label>
+                        <label class="good-name">
+                            Тотал:
+                            <input type="number" step="0.5" name="total_value" value="{{ event.total_value }}">
+                        </label>
+                        <label class="good-name">
+                            Меньше:
+                            <input type="number" step="0.01" name="under_ratio" value="{{ event.under_ratio }}">
+                        </label>
+                        <label class="good-name">
+                            Больше:
+                            <input type="number" step="0.01" name="over_ratio" value="{{ event.over_ratio }}">
+                        </label>
+                        <br>
+                        <button class="btn btn-primary btn-save" type="submit">Сохранить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block modal2 %}
+    <div class="modal fade" id="modal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Ввод результата</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data" action="{% url 'set_score' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" value="{{ event.id }}">
+                        </label>
+                        <label class="good-name">
+                            {{ event.team1 }} - {{ event.team2 }}
+                            <input type="number" name="total1" class="score" value="0"> - <input type="number" name="total2" class="score" value="0">
+                        </label>
+                        <button class="btn btn-primary btn-save" type="submit">Сохранить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block modal3 %}
+    <div class="modal fade" id="modal3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Вы уверены?</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data"
+                          action="{% url 'delete_event' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" value="{{ event.id }}">
+                        </label>
+                        <button class="btn btn-danger btn-save" type="submit">Удалить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modal4 %}
+    <div class="modal fade" id="modal4">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Вы уверены, что хотите завершить прием ставок на это событие?</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data"
+                          action="{% url 'close_event' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" value="{{ event.id }}">
+                        </label>
+                        <button class="btn btn-danger btn-save" type="submit">Да</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

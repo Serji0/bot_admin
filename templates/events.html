@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Список событий{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="events_list">
+
+        <table class="table">
+            <tr>
+                <td>
+                    Номер
+                </td>
+                <td>
+                    Дата
+                </td>
+                <td>
+                    Вид спорта
+                </td>
+                <td>
+                    Лига
+                </td>
+                <td>
+                    Матч
+                </td>
+                <td>
+                    Статус
+                </td>
+                <td>
+                    Результат
+                </td>
+            </tr>
+            {% for event in events %}
+                <tr>
+                    <td>
+                        <a href="{% url 'event' event.id %}">
+                            {{ event.id }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ event.time }}
+                    </td>
+                    <td>
+                        {{ event.sport }}
+                    </td>
+                    <td>
+                        {{ event.league }}
+                    </td>
+                    <td>
+                        {{ event.team1 }} - {{ event.team2 }}
+                    </td>
+                    <td>
+                        {{ event.status }}
+                    </td>
+                    <td>
+                        {{ event.total1 }} - {{ event.total2 }}
+                    </td>
+                </tr>
+
+
+            {% endfor %}
+        </table>
+    </div>
+    <button type="button" class="btn btn-primary btn-add-good btn-lg" data-toggle="modal" data-target="#modal1">Добавить
+        событие
+    </button>
+{% endblock %}
+
+
+
+{% block modal1 %}
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Добавление события</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data" action="{% url 'add_event' %}">
+                        {% csrf_token %}
+                        <label class="good-name">
+                            Вид спорта:
+                            <select name="sport" id="Sport">
+                                <option>basketball</option>
+                                <option>football</option>
+                                <option>hockey</option>
+                                <option>tennis</option>
+                                <option>cybersport</option>
+                                <option>other</option>
+                            </select>
+                        </label>
+                        <label class="good-price">
+                            Лига:
+                            <select name="league" id="League"></select>
+                        </label>
+                        <label class="good-name">
+                            Команда1:
+                            <select name="team1" id="Team1"></select>
+                        </label>
+                        <label class="good-name">
+                            Команда2:
+                            <select name="team2" id="Team2"></select>
+                        </label>
+                        <label class="good-name">
+                            Дата:
+                            <input type="datetime-local" name="time">
+                        </label>
+                        <label class="good-name">
+                            Максимальная ставка:
+                            <input type="number" name="max_bet" value="1000">
+                        </label>
+                        <label class="good-name">
+                            П1:
+                            <input type="number" name="win_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Х:
+                            <input type="number" name="draw_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            П2:
+                            <input type="number" name="lose_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Тотал:
+                            <input type="number" name="total_value" value="2.5" step="0.1">
+                        </label>
+                        <label class="good-name">
+                            Меньше:
+                            <input type="number" name="under_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Больше:
+                            <input type="number" name="over_ratio" value="1" step="0.01">
+                        </label>
+                        <br>
+                        <button class="btn btn-primary btn-save" type="submit">Сохранить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

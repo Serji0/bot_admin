@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Список событий{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="events_list">
+
+        <table class="table">
+            <tr>
+                <td>
+                    Номер
+                </td>
+                <td>
+                    Пользователь
+                </td>
+                <td>
+                    Тип
+                </td>
+                <td>
+                    Комментарий
+                </td>
+                <td>
+                    Статус
+                </td>
+            </tr>
+            {% for request in requests %}
+                <tr>
+                    <td>
+                        {{ request.id }}
+                    </td>
+                    <td>
+                        <a href="{% url 'user' request.user_id %}">
+                            {{ request.user_id }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ request.type }}
+                    </td>
+                    <td>
+                        {{ request.comment }}
+                    </td>
+                    <td>
+                        {{ request.status }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <button type="button" class="btn btn-primary btn-add-good btn-lg" data-toggle="modal" data-target="#modal1">Добавить
+        событие
+    </button>
+{% endblock %}
