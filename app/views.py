@@ -70,6 +70,49 @@ class RequestsView(View):
 class EventsView(View):
     def get(self, request):
         events = Event.objects.all()
+        teams = Team.objects.all()
+        Laliga = []
+        Bundesliga = []
+        EPL = []
+        RFPL = []
+        FNL = []
+        Ligue_1 = []
+        Serie_A = []
+        Champions_league = []
+        Europa_league = []
+        Ukraine_league = []
+        NBA = []
+        NHL = []
+        KHL = []
+
+        for team in teams:
+            if team.league == 'EPL':
+                EPL.append(team.name)
+            if team.league == 'LaLiga':
+                Laliga.append(team.name)
+            if team.league == 'Serie_A':
+                Serie_A.append(team.name)
+            if team.league == 'Bundesliga':
+                Bundesliga.append(team.name)
+            if team.league == 'Ligue_1':
+                Ligue_1.append(team.name)
+            if team.league == 'RFPL':
+                RFPL.append(team.name)
+            if team.league == 'FNL':
+                FNL.append(team.name)
+            if team.league == 'Ukraine_league':
+                Ukraine_league.append(team.name)
+            if team.league == 'Champions_league':
+                Champions_league.append(team.name)
+            if team.league == 'Europa_league':
+                Europa_league.append(team.name)
+            if team.league == 'NBA':
+                NBA.append(team.name)
+            if team.league == 'NHL':
+                NHL.append(team.name)
+            if team.league == 'KHL':
+                KHL.append(team.name)
+
         dictionary = {
             'events': events,
             'football': ['EPL', 'Bundesliga', 'LaLiga', 'Serie_A', 'Ligue_1', 'RFPL', 'Champions_league',
@@ -79,39 +122,19 @@ class EventsView(View):
             'tennis': ['ATP', 'WTA', 'other'],
             'cybersport': ['CS GO', 'Dota 2', 'League of legends', 'FIFA', 'Starcraft', 'other'],
             'other': ['other'],
-            'EPL': ['Arsenal', 'Aston Villa', 'Bournemouth', 'Burnley', 'Chelsea', 'Crystal Palace', 'Everton',
-                    'Hull City', 'Leister City', 'Liverpool', 'Manchester City', 'Manchester United', 'Middlesbrough',
-                    'Southampton', 'Stoke City', 'Sunderland', 'Swansey', 'Tottenham', 'Watford', 'West Bromwich',
-                    'West Ham'],
-            'Bundesliga': ['Augsburg', 'Bayer 04', 'Bayern', 'Borussia D.', 'Borussia M.', 'Darmstadt 98', 'Eintracht',
-                           'Freiburg', 'Hamburger SV', 'Herta', 'Hoffenheim 1899', 'Ingolstadt 04', 'Koln', 'Mainz 05',
-                           'RB Leipzig', 'Shalke 04', 'Wolfsburg', 'Werder'],
-            'LaLiga': ['Alaves', 'Athletic', 'Atletico', 'Celta', 'Deportivo', 'Eibar', 'Espanyol', 'FC Barcelona',
-                       'Granada', 'Las Palmas', 'Leganes', 'Malaga', 'Osasuna', 'R. Betis', 'R. Madrid', 'R. Sociedad',
-                       'Sevilla', 'Sporting', 'Valencia', 'Villareal'],
-            'Serie_A': ['Atalanta', 'Bologna', 'Cagliari', 'Chievoverona', 'Crotone', 'Empoli', 'Fiorentina', 'Genoa',
-                        'Inter', 'Juventus', 'Lazio', 'Milan', 'Napoli', 'Palermo', 'Pescara', 'Roma', 'Sampdoria',
-                        'Sassuolo', 'Torino', 'Udinese'],
-            'Ligue_1': ['Angers', 'Bastia', 'Bordeaux', 'Caen', 'Dijon', 'Guingamp', 'LOSC', 'Lorient', 'OL', 'OM',
-                        'Metz', 'Monaco', 'Monpellier', 'Nancy', 'Nantes', 'Nice', 'PSG', 'Rennais', 'Saint-Etienne',
-                        'Toulouse'],
-            'RFPL': ['Amkar', 'Anji', 'Arsenal', 'CSKA', 'Krasnodar', 'Krylia sovetov', 'Lokomotiv', 'Orenburg',
-                     'Rostov', 'Rubin', 'Spartak', 'Terek', 'Tom', 'UFA', 'Ural', 'Zenit'],
-            'Ukraine_league': ['Chornomorets', 'Dnipro', 'Dynamo', 'Karpaty', 'Oleksandria', 'Olimpick', 'Shaktar',
-                               '	Stal Kamianske', 'Volyn', 'Vorskla', 'Zirka', 'Zorya'],
-            'FNL': ['Baltika', 'Dynamo', 'Enisey', 'Fakel', 'Himki', 'Kuban', 'Luch-energia', 'Mordovia', 'Neftehimik',
-                    'Shinnik', 'Sibir', 'SKA', 'Sokol', 'Spartak-2', 'Spartak-Nalchik', 'Tambov', 'Tosno', 'Tumen',
-                    'Volgar', 'Zenit-2'],
-            'Champions_league': [],
-            'Europa_league': ['Ajax', 'Anderlecht', 'APOEL', 'Besiktas', 'Borussia M.', 'Celta', 'Genk', 'Gent',
-                              'Kobenhagen', 'Krasnodar', 'Lyon', 'Manchester United', 'Olimpiakos', 'Roma', 'Rostov',
-                              'Shalke 04'],
-            'NBA': ['Atlanta', 'Boston', 'Brooklyn', 'Charlotte', 'Chicago', 'Cleveland', 'Dallas', 'Denver', 'Detroit',
-                    'Golden State', 'Houston', 'Indiana', 'LA Clippers', 'LA Lakers', 'Miami', 'Milwaukee', 'Minnesota',
-                    'New Orleans', 'New York', 'Okhlahoma', 'Orlando', 'Philadelphia', 'Phoenix', 'Portland',
-                    'Sacramento', 'San Antonio', 'Toronto', 'Utah', 'Washington'],
-            'NHL': [],
-            'KHL': []
+            'EPL': EPL,
+            'Bundesliga': Bundesliga,
+            'LaLiga': Laliga,
+            'Serie_A': Serie_A,
+            'Ligue_1': Ligue_1,
+            'RFPL': RFPL,
+            'Ukraine_league': Ukraine_league,
+            'FNL': FNL,
+            'Champions_league': Champions_league,
+            'Europa_league': Europa_league,
+            'NBA': NBA,
+            'NHL': NHL,
+            'KHL': KHL
         }
         return render(request, 'events.html', dictionary)
 

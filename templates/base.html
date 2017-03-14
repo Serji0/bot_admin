@@ -81,6 +81,18 @@
                     $("#Team1").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
                     $("#Team2").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
                 }
+                if (el.val() === "NBA") {
+                    $("#Team1").append("{% for team in NBA %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in NBA %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "NHL") {
+                    $("#Team1").append("{% for team in NHL %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in NHL %} <option> {{ team }}</option> {% endfor %}");
+                }
+                if (el.val() === "KHL") {
+                    $("#Team1").append("{% for team in KHL %} <option> {{ team }}</option> {% endfor %}");
+                    $("#Team2").append("{% for team in KHL %} <option> {{ team }}</option> {% endfor %}");
+                }
             });
 
         });
