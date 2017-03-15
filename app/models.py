@@ -6,7 +6,7 @@ class User(models.Model):
     def __str__(self):
         return self.qiwi
 
-    telegram_id = models.CharField(max_length=15, default='')
+    telegram_id = models.CharField(max_length=15, default='', unique=True)
     balance = models.FloatField(default=0)
     qiwi = models.CharField(max_length=20, default='', unique=True)
 

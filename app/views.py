@@ -215,13 +215,13 @@ def set_score(request):
                 else:
                     bet.status = '-----'
             elif bet.choice == 'under':
-                if (event.total1 + event.total2) < event.total_value:
+                if float((event.total1 + event.total2)) < event.total_value:
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
                 else:
                     bet.status = '-----'
             elif bet.choice == 'over':
-                if (event.total1 + event.total2) > event.total_value:
+                if float((event.total1 + event.total2)) > event.total_value:
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
                 else:
