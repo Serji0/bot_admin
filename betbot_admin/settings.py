@@ -25,7 +25,7 @@ SECRET_KEY = ')19d9kpq(g(7)=6@(ug%&q5walq65b4d9++)*j)nxn1tzb@q@='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['185.189.13.171', 'localhost']
+ALLOWED_HOSTS = ['185.189.13.171', '185.159.130.39', 'blockbet24.ru', 'localhost']
 
 
 # Application definition

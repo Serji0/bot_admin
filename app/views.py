@@ -11,7 +11,7 @@ from app.forms import *
 
 @login_required(login_url='/authorization/')
 def main(request):
-    return render(request, 'index.html')
+    return render(request, 'events.html')
 
 
 def authorization(request):
@@ -67,6 +67,50 @@ class RequestsView(View):
         return render(request, 'requests.html', {'requests': requests})
 
 
+class TeamsView(View):
+    def get(self, request):
+        teams = Team.objects.all()
+        dictionary = {
+            'teams': teams,
+            'football': ['EPL', 'Bundesliga', 'LaLiga', 'Serie_A', 'Ligue_1', 'RFPL', 'Champions_league',
+                         'Europa_league', 'Ukraine_league', 'FNL', 'other'],
+            'basketball': ['NBA', 'other'],
+            'hockey': ['NHL', 'KHL', 'other'],
+            'tennis': ['ATP', 'WTA', 'other'],
+            'e-Sports': ['CS GO', 'Dota 2', 'League of legends', 'FIFA', 'Starcraft', 'other']
+        }
+        return render(request, 'teams.html', dictionary)
+
+
+def add_team(request):
+    if request.method == 'POST':
+        team = Team()
+        team.sport = request.POST.get('sport')
+        team.league = request.POST.get('league')
+        team.name = request.POST.get('name')
+        team.save()
+        return HttpResponseRedirect('/teams')
+    return HttpResponseRedirect('/')
+
+
+def delete_team(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        team = Team.objects.filter(id=id)[0]
+        team.delete()
+        return HttpResponseRedirect('/teams')
+    return HttpResponseRedirect('/')
+
+
+class TeamView(View):
+    def get(self, request, id):
+        team = Team.objects.filter(id=id)[0]
+        dictionary = {
+            'team': team,
+        }
+        return render(request, 'team.html', dictionary)
+
+
 class EventsView(View):
     def get(self, request):
         events = Event.objects.all()
@@ -116,12 +160,9 @@ class EventsView(View):
         dictionary = {
             'events': events,
             'football': ['EPL', 'Bundesliga', 'LaLiga', 'Serie_A', 'Ligue_1', 'RFPL', 'Champions_league',
-                         'Europa_league', 'Ukraine_league', 'FNL', 'other'],
-            'basketball': ['NBA', 'other'],
-            'hockey': ['NHL', 'KHL', 'other'],
-            'tennis': ['ATP', 'WTA', 'other'],
-            'cybersport': ['CS GO', 'Dota 2', 'League of legends', 'FIFA', 'Starcraft', 'other'],
-            'other': ['other'],
+                         'Europa_league', 'Ukraine_league', 'FNL'],
+            'basketball': ['NBA'],
+            'hockey': ['NHL', 'KHL'],
             'EPL': EPL,
             'Bundesliga': Bundesliga,
             'LaLiga': Laliga,
@@ -153,6 +194,10 @@ def add_event(request):
         event.total_value = request.POST.get('total_value')
         event.under_ratio = request.POST.get('under_ratio')
         event.over_ratio = request.POST.get('over_ratio')
+        event.handicap1 = request.POST.get('handicap1')
+        event.handicap1_ratio = request.POST.get('handicap1_ratio')
+        event.handicap2 = request.POST.get('handicap2')
+        event.handicap2_ratio = request.POST.get('handicap2_ratio')
         event.max_bet = request.POST.get('max_bet')
         event.save()
         return HttpResponseRedirect('/events')
@@ -180,6 +225,10 @@ def edit_event(request):
         event.total_value = request.POST.get('total_value')
         event.under_ratio = request.POST.get('under_ratio')
         event.over_ratio = request.POST.get('over_ratio')
+        event.handicap1 = request.POST.get('handicap1')
+        event.handicap1_ratio = request.POST.get('handicap1_ratio')
+        event.handicap2 = request.POST.get('handicap2')
+        event.handicap2_ratio = request.POST.get('handicap2_ratio')
         event.save()
         return HttpResponseRedirect('/events/')
     return HttpResponseRedirect('/')
@@ -197,7 +246,7 @@ def set_score(request):
             u_id = bet.user_id
             user = User.objects.filter(id=u_id)[0]
             if bet.choice == 'win1':
-                if event.total1 > event.total2:
+                if float(event.total1) > float(event.total2):
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
                 else:
@@ -209,7 +258,7 @@ def set_score(request):
                 else:
                     bet.status = '-----'
             elif bet.choice == 'win2':
-                if event.total2 > event.total1:
+                if float(event.total2) > float(event.total1):
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
                 else:
@@ -218,12 +267,36 @@ def set_score(request):
                 if (float(event.total1) + float(event.total2)) < event.total_value:
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
+                elif float(event.total1) + float(event.total2) == event.total_value:
+                    bet.status = '==='
+                    user.balance += bet.amount
                 else:
                     bet.status = '-----'
             elif bet.choice == 'over':
                 if (float(event.total1) + float(event.total2)) > event.total_value:
                     bet.status = '+++'
                     user.balance += bet.ratio * bet.amount
+                elif float(event.total1) + float(event.total2) == event.total_value:
+                    bet.status = '==='
+                    user.balance += bet.amount
+                else:
+                    bet.status = '-----'
+            elif bet.choice == 'handicap1':
+                if (float(event.total1) + event.handicap1) > float(event.total2):
+                    bet.status = '+++'
+                    user.balance += bet.ratio * bet.amount
+                elif float(event.total1)+event.handicap1 == float(event.total2):
+                    bet.status = '==='
+                    user.balance += bet.amount
+                else:
+                    bet.status = '-----'
+            elif bet.choice == 'handicap2':
+                if (float(event.total2) + event.handicap2) > float(event.total1):
+                    bet.status = '+++'
+                    user.balance += bet.ratio * bet.amount
+                elif float(event.total2)+event.handicap2 == float(event.total1):
+                    bet.status = '==='
+                    user.balance += bet.amount
                 else:
                     bet.status = '-----'
             user.save()
@@ -240,6 +313,7 @@ def delete_event(request):
         return HttpResponseRedirect('/events')
     return HttpResponseRedirect('/')
 
+
 def close_event(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -248,6 +322,3 @@ def close_event(request):
         event.save()
         return HttpResponseRedirect('/events')
     return HttpResponseRedirect('/')
-
-
-

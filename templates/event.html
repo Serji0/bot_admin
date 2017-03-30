@@ -10,20 +10,20 @@
 
 {% block body %}
     <div class="good">
-    <p class="title"> {{ event.sport }} {{ event.league }} {{ event.team1 }}
-        - {{ event.team2 }} {{ event.time }} {{ event.total1 }} - {{ event.total2 }}</p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
-        Изменить
-    </button>
-    <button id ='close_event' type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">
-        Закрыть приём ставок
-    </button>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal2">
-        Ввести счет
-    </button>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal3">
-        Удалить событие
-    </button>
+        <p class="title"> {{ event.sport }} {{ event.league }} {{ event.team1 }}
+            - {{ event.team2 }} {{ event.time }} {{ event.total1 }} - {{ event.total2 }}</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
+            Изменить
+        </button>
+        <button id='close_event' type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">
+            Закрыть приём ставок
+        </button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal2">
+            Ввести счет
+        </button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal3">
+            Удалить событие
+        </button>
     </div>
     <div class="users_list">
         <table class="table">
@@ -43,6 +43,12 @@
                 <td>
                     ТБ {{ event.total_value }}
                 </td>
+                <td>
+                    Ф1 {{ event.handicap1 }}
+                </td>
+                <td>
+                    Ф2 {{ event.handicap2 }}
+                </td>
             </tr>
             <tr>
                 <td>
@@ -60,6 +66,12 @@
                 </td>
                 <td>
                     {{ event.over_ratio }}
+                </td>
+                <td>
+                    {{ event.handicap1_ratio }}
+                </td>
+                <td>
+                    {{ event.handicap2_ratio }}
                 </td>
             </tr>
         </table>
@@ -131,7 +143,7 @@
                         </label>
                         <label class="good-name">
                             Дата:
-                            <input type="datetime-local" name="time" value="{{ event.time }}">
+                            <input type="text" name="time" value="{{ event.time|date:"d.m.Y H:i" }}">
                         </label>
                         <label class="good-name">
                             Максимальная ставка:
@@ -148,6 +160,16 @@
                         <label class="good-name">
                             П2:
                             <input type="number" step="0.01" name="lose_ratio" value="{{ event.lose_ratio }}">
+                        </label>
+                        <label class="good-name">
+                            Ф1:
+                            <input type="number" name="handicap1" value="0" step="0.5">
+                            <input type="number" name="handicap1_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Ф2:
+                            <input type="number" name="handicap2" value="0" step="0.5">
+                            <input type="number" name="handicap2_ratio" value="1" step="0.01">
                         </label>
                         <label class="good-name">
                             Тотал:
@@ -188,7 +210,10 @@
                         </label>
                         <label class="good-name">
                             {{ event.team1 }} - {{ event.team2 }}
-                            <input type="number" name="total1" class="score" value="0"> - <input type="number" name="total2" class="score" value="0">
+                            <input type="number" name="total1" class="score" value="0"> - <input type="number"
+                                                                                                 name="total2"
+                                                                                                 class="score"
+                                                                                                 value="0">
                         </label>
                         <button class="btn btn-primary btn-save" type="submit">Сохранить</button>
                         <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>

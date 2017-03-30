@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.qiwi }}{% endblock %}
+
+{% block navbar %}
+    <div class="btn_navbar">
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">Выйти</a></button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="good">
+    <p class="title"> {{ team.sport }} {{ team.league }} {{ team.name }}</p>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal1">
+        Удалить команду
+    </button>
+{% endblock %}
+
+
+
+{% block modal1 %}
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Вы уверены?</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="add_good" method="POST" enctype="multipart/form-data"
+                          action="{% url 'delete_team' %}">
+                        {% csrf_token %}
+                        <label class="good-name" style="visibility: hidden">
+                            id:
+                            <input type="text" name="id" value="{{ team.id }}">
+                        </label>
+                        <button class="btn btn-danger btn-save" type="submit">Удалить</button>
+                        <button class="btn btn-primary btn-close" type="button" data-dismiss="modal">Отмена</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

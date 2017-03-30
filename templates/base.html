@@ -17,84 +17,111 @@
             $("#Sport").change(function () {
                 var el = $(this);
                 $("#League").empty()
-                    .append("<option> Choose league </option>");
+                    .append("Лига: ");
                 if (el.val() === "basketball") {
-                    $("#League").append("{% for league in basketball %} <option> {{ league }}</option> {% endfor %}");
+                    $('#League').append("<select name='league' id='League_select'><option>Choose team</option> {% for league in basketball %} <option> {{ league }}</option> {% endfor %}</select>");
+                    $("#League_select").change(function () {
+                        var el = $(this);
+                        $("#Team1").empty()
+                            .append("Команда1");
+                        $("#Team2").empty()
+                            .append("Команда2");
+                        if (el.val() === "NBA") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in NBA %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in NBA %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                    });
                 }
                 if (el.val() === "football") {
-                    $("#League").append("{% for league in football %} <option> {{ league }}</option> {% endfor %}");
+                    $('#League').append("<select name='league' id='League_select'><option>Choose team</option> {% for league in football %} <option> {{ league }}</option> {% endfor %}</select>");
+                    $("#League_select").change(function () {
+                        var el = $(this);
+                        $("#Team1").empty()
+                            .append("Команда1");
+                        $("#Team2").empty()
+                            .append("Команда2");
+                        if (el.val() === "LaLiga") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Serie_A") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Bundesliga") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "EPL") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in EPL %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in EPL %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Ligue_1") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Ligue1 %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Ligue_1 %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "RFPL") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Ukraine_league") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "FNL") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in FNL %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in FNL %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Champions_league") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "Europa_league") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                    });
                 }
                 if (el.val() === "hockey") {
-                    $("#League").append("{% for league in hockey %} <option> {{ league }}</option> {% endfor %}");
+                    $('#League').append("<select name='league' id='League_select'><option>Choose team</option> {% for league in hockey %} <option> {{ league }}</option> {% endfor %}</select>");
+                    $("#League_select").change(function () {
+                        var el = $(this);
+                        $("#Team1").empty()
+                            .append("Команда1");
+                        $("#Team2").empty()
+                            .append("Команда2");
+                        if (el.val() === "NHL") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in NHL %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in NHL %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                        if (el.val() === "KHL") {
+                            $("#Team1").append("<select name='team1' id='Team1_select'><option>Choose team</option>{% for team in KHL %} <option> {{ team }}</option> {% endfor %}</select>");
+                            $("#Team2").append("<select name='team2' id='Team1_select'><option>Choose team</option>{% for team in KHL %} <option> {{ team }}</option> {% endfor %}</select>");
+                        }
+                    });
                 }
                 if (el.val() === "tennis") {
-                    $("#League").append("{% for league in tennis %} <option> {{ league }}</option> {% endfor %}");
+                    $('#League').append("<input name='league' id='League_select'></input>");
+                    $('#Team1').append("Команда1: ");
+                    $('#Team1').append("<input name='team1' id='Team1_select'></input>");
+                    $('#Team2').append("Команда2: ");
+                    $('#Team2').append("<input name='team2' id='Team2_select'></input>");
                 }
-                if (el.val() === "cybersport") {
-                    $("#League").append("{% for league in cybersport %} <option> {{ league }}</option> {% endfor %}");
+                if (el.val() === "e-Sports") {
+                    $('#League').append("<input name='league' id='League_select'></input>");
+                    $('#Team1').append("Команда1: ");
+                    $('#Team1').append("<input name='team1' id='Team1_select'></input>");
+                    $('#Team2').append("Команда2: ");
+                    $('#Team2').append("<input name='team2' id='Team2_select'></input>");
                 }
-            });
-
-            $("#League").change(function () {
-                var el = $(this);
-                $("#Team1").empty()
-                    .append("<option> Choose team </option>");
-                $("#Team2").empty()
-                    .append("<option> Choose team </option>");
-                if (el.val() === "LaLiga") {
-                    $("#Team1").append("{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in LaLiga %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Serie_A") {
-                    $("#Team1").append("{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Serie_A %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Bundesliga") {
-                    $("#Team1").append("{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Bundesliga %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "EPL") {
-                    $("#Team1").append("{% for team in EPL %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in EPL %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Ligue_1") {
-                    $("#Team1").append("{% for team in Ligue_1 %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Ligue_1 %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "RFPL") {
-                    $("#Team1").append("{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in RFPL %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Ukraine_league") {
-                    $("#Team1").append("{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Ukraine_league %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "FNL") {
-                    $("#Team1").append("{% for team in FNL %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in FNL %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Champions_league") {
-                    $("#Team1").append("{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Champions_league %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "Europa_league") {
-                    $("#Team1").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in Europa_league %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "NBA") {
-                    $("#Team1").append("{% for team in NBA %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in NBA %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "NHL") {
-                    $("#Team1").append("{% for team in NHL %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in NHL %} <option> {{ team }}</option> {% endfor %}");
-                }
-                if (el.val() === "KHL") {
-                    $("#Team1").append("{% for team in KHL %} <option> {{ team }}</option> {% endfor %}");
-                    $("#Team2").append("{% for team in KHL %} <option> {{ team }}</option> {% endfor %}");
+                if (el.val() === "other") {
+                    $('#League').append("<input name='league' id='League_select'></input>");
+                    $('#Team1').append("Команда1: ");
+                    $('#Team1').append("<input name='team1' id='Team1_select'></input>");
+                    $('#Team2').append("Команда2: ");
+                    $('#Team2').append("<input name='team2' id='Team2_select'></input>");
                 }
             });
-
         });
     </script>
 </head>
@@ -112,6 +139,9 @@
         </div>
         <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'requests' %}">Запросы</a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'teams' %}">Команды</a>
         </div>
         {% block navbar %}{% endblock %}
     </div>

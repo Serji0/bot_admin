@@ -18,5 +18,9 @@ urlpatterns = [
     url(r'^set_crore/', set_score, name='set_score'),
     url(r'^delete_event/', delete_event, name='delete_event'),
     url(r'^close_event/', close_event, name='close_event'),
-    url(r'^requests', RequestsView.as_view(), name='requests')
+    url(r'^requests', RequestsView.as_view(), name='requests'),
+    url(r'^teams', TeamsView.as_view(), name='teams'),
+    url(r'^add_team/', add_team, name='add_team'),
+    url(r'^delete_team/', delete_team, name='delete_team'),
+    url(r'^team/(?P<id>\d+)', TeamView.as_view(), name='team'),
 ]

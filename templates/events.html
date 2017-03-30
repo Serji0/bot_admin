@@ -43,7 +43,7 @@
                         </a>
                     </td>
                     <td>
-                        {{ event.time }}
+                        {{ event.time|date:"d.m.Y H:i" }}
                     </td>
                     <td>
                         {{ event.sport }}
@@ -86,25 +86,20 @@
                         <label class="good-name">
                             Вид спорта:
                             <select name="sport" id="Sport">
+                                <option>Chose sport</option>
                                 <option>basketball</option>
                                 <option>football</option>
                                 <option>hockey</option>
                                 <option>tennis</option>
-                                <option>cybersport</option>
+                                <option>e-Sports</option>
                                 <option>other</option>
                             </select>
                         </label>
-                        <label class="good-price">
-                            Лига:
-                            <select name="league" id="League"></select>
+                        <label class="good-price" id ="League">
                         </label>
-                        <label class="good-name">
-                            Команда1:
-                            <select name="team1" id="Team1"></select>
+                        <label class="good-name" id = 'Team1'>
                         </label>
-                        <label class="good-name">
-                            Команда2:
-                            <select name="team2" id="Team2"></select>
+                        <label class="good-name" id = 'Team2'>
                         </label>
                         <label class="good-name">
                             Дата:
@@ -125,6 +120,16 @@
                         <label class="good-name">
                             П2:
                             <input type="number" name="lose_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Ф1:
+                            <input type="number" name="handicap1" value="0" step="0.5">
+                            <input type="number" name="handicap1_ratio" value="1" step="0.01">
+                        </label>
+                        <label class="good-name">
+                            Ф2:
+                            <input type="number" name="handicap2" value="0" step="0.5">
+                            <input type="number" name="handicap2_ratio" value="1" step="0.01">
                         </label>
                         <label class="good-name">
                             Тотал:
