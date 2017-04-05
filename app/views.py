@@ -242,65 +242,128 @@ def set_score(request):
         event.total2 = request.POST.get('total2')
         event.save()
         bets = Bet.objects.filter(event_id=id).all()
-        for bet in bets:
-            u_id = bet.user_id
-            user = User.objects.filter(id=u_id)[0]
-            if bet.choice == 'win1':
-                if float(event.total1) > float(event.total2):
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'draw':
-                if event.total1 == event.total2:
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'win2':
-                if float(event.total2) > float(event.total1):
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'under':
-                if (float(event.total1) + float(event.total2)) < event.total_value:
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                elif float(event.total1) + float(event.total2) == event.total_value:
-                    bet.status = '==='
-                    user.balance += bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'over':
-                if (float(event.total1) + float(event.total2)) > event.total_value:
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                elif float(event.total1) + float(event.total2) == event.total_value:
-                    bet.status = '==='
-                    user.balance += bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'handicap1':
-                if (float(event.total1) + event.handicap1) > float(event.total2):
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                elif float(event.total1)+event.handicap1 == float(event.total2):
-                    bet.status = '==='
-                    user.balance += bet.amount
-                else:
-                    bet.status = '-----'
-            elif bet.choice == 'handicap2':
-                if (float(event.total2) + event.handicap2) > float(event.total1):
-                    bet.status = '+++'
-                    user.balance += bet.ratio * bet.amount
-                elif float(event.total2)+event.handicap2 == float(event.total1):
-                    bet.status = '==='
-                    user.balance += bet.amount
-                else:
-                    bet.status = '-----'
-            user.save()
-            bet.save()
+        if event.sport == 'tennis':
+            t1 = request.POST.get('total1_1')
+            t2 = request.POST.get('total2_1')
+            for bet in bets:
+                u_id = bet.user_id
+                user = User.objects.filter(id=u_id)[0]
+                if bet.choice == 'win1':
+                    if float(event.total1) > float(event.total2):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'draw':
+                    if event.total1 == event.total2:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'win2':
+                    if float(event.total2) > float(event.total1):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'under':
+                    if (float(t1) + float(t2)) < event.total_value:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(t1) + float(t2) == event.total_value:
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'over':
+                    if (float(t1) + float(t2)) > event.total_value:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(t1) + float(t2) == event.total_value:
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'handicap1':
+                    if (float(t1) + event.handicap1) > float(t2):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(t1) + event.handicap1 == float(t2):
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'handicap2':
+                    if (float(t2) + event.handicap2) > float(t1):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(t2) + event.handicap2 == float(t1):
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                user.save()
+                bet.save()
+        else:
+            for bet in bets:
+                u_id = bet.user_id
+                user = User.objects.filter(id=u_id)[0]
+                if bet.choice == 'win1':
+                    if float(event.total1) > float(event.total2):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'draw':
+                    if event.total1 == event.total2:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'win2':
+                    if float(event.total2) > float(event.total1):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'under':
+                    if (float(event.total1) + float(event.total2)) < event.total_value:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(event.total1) + float(event.total2) == event.total_value:
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'over':
+                    if (float(event.total1) + float(event.total2)) > event.total_value:
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(event.total1) + float(event.total2) == event.total_value:
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'handicap1':
+                    if (float(event.total1) + event.handicap1) > float(event.total2):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(event.total1)+event.handicap1 == float(event.total2):
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                elif bet.choice == 'handicap2':
+                    if (float(event.total2) + event.handicap2) > float(event.total1):
+                        bet.status = '+++'
+                        user.balance += bet.ratio * bet.amount
+                    elif float(event.total2)+event.handicap2 == float(event.total1):
+                        bet.status = '==='
+                        user.balance += bet.amount
+                    else:
+                        bet.status = '-----'
+                user.save()
+                bet.save()
         return HttpResponseRedirect('/events')
     return HttpResponseRedirect('/')
 
